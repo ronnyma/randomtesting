@@ -13,7 +13,6 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>RandomTesting</name>
     <description>RandomTesting</description>
-
     <properties>
         <java.version>22</java.version>
     </properties>

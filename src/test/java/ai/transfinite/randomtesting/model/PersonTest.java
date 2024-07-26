@@ -19,7 +19,8 @@ class PersonTest {
         person = Instancio.of(Person.class)
                 .generate(field("firstName"), gen -> gen.string().length(2, 15))
                 .generate(field("firstName"), gen -> gen.string().length(3, 15))
-                .generate(field(Person::dateOfBirth), gen -> gen. temporal().localDate().past().min(LocalDate.now().minusYears(80L)))
+                .generate(field(Person::dateOfBirth), gen -> gen.temporal().localDate().past().min(LocalDate.now().minusYears(80L)))
+                .generate(field("city"), gen -> gen.oneOf("New York City", "Chicago", "Los Angeles", "Seattle"))
                 .create();
     }
 
@@ -29,8 +30,7 @@ class PersonTest {
         assertThat(person.lastName()).hasSizeBetween(3, 15);
         assertThat(person.dateOfBirth()).isBefore(LocalDate.now());
         assertThat(person.dateOfBirth()).isAfter(LocalDate.now().minusYears(80L));
+        assertThat(person.city()).containsAnyOf("New York City", "Chicago", "Los Angeles", "Seattle");
         log.info("Person: {}", person);
     }
-
-
 }
