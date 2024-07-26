@@ -17,10 +17,10 @@ class PersonTest {
     @BeforeEach
     void setUp() {
         person = Instancio.of(Person.class)
-                .generate(field("firstName"), gen -> gen.string().length(2, 15))
-                .generate(field("firstName"), gen -> gen.string().length(3, 15))
+                .generate(field(Person::firstName), gen -> gen.string().length(2, 15))
+                .generate(field(Person::lastName), gen -> gen.string().length(3, 15))
                 .generate(field(Person::dateOfBirth), gen -> gen.temporal().localDate().past().min(LocalDate.now().minusYears(80L)))
-                .generate(field("city"), gen -> gen.oneOf("New York City", "Chicago", "Los Angeles", "Seattle"))
+                .generate(field(Person::city), gen -> gen.oneOf("New York City", "Chicago", "Los Angeles", "Seattle"))
                 .create();
     }
 
